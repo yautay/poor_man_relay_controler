@@ -1,0 +1,44 @@
+{
+  "name": "2.-relay-con",
+  "version": "1.0.0",
+  "description": "ESP-8266 relays logic controller",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yautay/poor_man_realy_controler.git"
+  },
+  "author": "yautay",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yautay/poor_man_realy_controler/issues"
+  },
+  "homepage": "https://github.com/yautay/poor_man_realy_controler#readme",
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "browser-sync": "^2.27.7",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-cssnano": "^2.1.3",
+    "gulp-htmlhint": "^4.0.1",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-imagemin": "^8.0.0",
+    "gulp-kit-2": "^0.2.2",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-replace": "^1.1.3",
+    "gulp-sass": "^5.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-uglify": "^3.0.2",
+    "gutil": "^1.6.4",
+    "node-kit": "^0.11.0",
+    "node-sass": "^7.0.0"
+  },
+  "dependencies": {},
+  "keywords": []
+}
