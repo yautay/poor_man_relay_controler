@@ -1,22 +1,17 @@
-html {
-  font-family: Arial, Helvetica, sans-serif;
-  display: inline-block;
-  text-align: center;
-}
-h1 {
-  font-size: 1.8rem;
-  color: white;
-}
+
 .topnav {
   overflow: hidden;
   background-color: #0A1128;
 }
+
 body {
   margin: 0;
 }
+
 .content {
   padding: 50px;
 }
+
 .card-grid {
   max-width: 800px;
   margin: 0 auto;
@@ -24,15 +19,18 @@ body {
   grid-gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
+
 .card {
   background-color: white;
   box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5);
 }
+
 .card-title {
   font-size: 1.2rem;
   font-weight: bold;
   color: #034078
 }
+
 .reading {
   font-size: 1.2rem;
   color: #1282A2;
@@ -52,9 +50,11 @@ input[type=submit] {
   border-radius: 4px;
   transition-duration: 0.4s;
 }
+
 input[type=submit]:hover {
   background-color: #1282A2;
 }
+
 input[type=text], input[type=number], select {
   width: 50%;
   padding: 12px 20px;
@@ -64,21 +64,25 @@ input[type=text], input[type=number], select {
   border-radius: 4px;
   box-sizing: border-box;
 }
+
 .switch {
   position: relative;
   display: inline-block;
   width: 120px;
   height: 68px
 }
+
 .switch input {
   display: none
 }
+
 .slider {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   background-color: #ccc;
   border-radius: 50px
 }
+
 .slider:before {
   position: absolute;
   content: "";
@@ -90,9 +94,11 @@ input[type=text], input[type=number], select {
   transition: .4s;
   border-radius: 50px;
 }
+
 input:checked+.slider {
   background-color: #b30000;
 }
+
 input:checked+.slider:before {
   -webkit-transform: translateX(52px);
   -ms-transform: translateX(52px);

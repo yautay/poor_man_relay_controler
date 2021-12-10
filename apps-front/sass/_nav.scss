@@ -1,0 +1,36 @@
+@import "colors";
+
+.shadow-bg,
+.shadow-bg-hamburger{
+  background-color: $nav-bckg-solid;
+}
+nav {
+  text-transform: uppercase;
+  background-color: $nav-bckg;
+  transition: background-color .5s;
+  font-size: 1.1rem;
+  z-index: 100;
+  a,
+  button {
+    color: $nav-text;
+  }
+  a:hover {
+    color: $nav-text-hover;
+  }
+  .active {
+    color: $nav-text-hover;
+  }
+  .navbar-brand {
+    font-weight: bolder;
+    :first-child{
+      margin-right: 5px;
+    }
+  }
+  .fa-bars {
+    padding: 10px;
+  }
+  .icon-swirl {
+    font-size: 2rem;
+    text-shadow: 2px 2px 4px green;
+  }
+}

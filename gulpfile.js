@@ -1,5 +1,5 @@
 const {src, dest, series, parallel, watch} = require("gulp");
-const sass = require("gulp-sass");
+const sass = require('gulp-sass')(require('sass'))
 const cssnano = require("gulp-cssnano");
 const autoprefixer = require("gulp-autoprefixer");
 const rename = require("gulp-rename");
@@ -14,21 +14,38 @@ const plumber = require('gulp-plumber');
 const replace = require('gulp-replace');
 const htmlmin = require('gulp-htmlmin');
 const htmlhint = require("gulp-htmlhint");
-sass.compiler = require("node-sass");
+sass.compiler = require("sass");
 
 const paths = {
     src: {
-        sass: "./apps-front/sass/**/*.scss",
+        sass: "./apps-front/sass/**/*.{scss,sass}",
         js: "./apps-front/js/**/*.js",
-        html: "./apps-front/html/**/*.kit"
+        html: "./apps-front/html/**/*.kit",
     },
     dest: {
         css: "./data/css",
         js: "./data/js",
-        img: "./dist/img",
         dist: "./data/*",
-        root: "./",
+        root: "./data",
     }
+}
+
+function cleanDist(done) {
+    src([paths.dest.dist], {read: false})
+        .pipe(plumber())
+        .pipe(clean());
+    done()
+}
+
+function sassCompilerDev(done) {
+    src(paths.src.sass)
+        .pipe(plumber())
+        .pipe(sourcemaps.init())
+        .pipe(sass().on("error", sass.logError))
+        .pipe(autoprefixer({cascade: false}))
+        .pipe(sourcemaps.write())
+        .pipe(dest(paths.dest.css));
+    done();
 }
 
 function sassCompiler(done) {
@@ -44,6 +61,16 @@ function sassCompiler(done) {
     done();
 }
 
+function javaScriptDev(done) {
+    src(paths.src.js)
+        .pipe(plumber())
+        .pipe(sourcemaps.init())
+        .pipe(babel({presets: ["@babel/env"]}))
+        .pipe(sourcemaps.write())
+        .pipe(dest(paths.dest.js));
+    done();
+}
+
 function javaScript(done) {
     src(paths.src.js)
         .pipe(plumber())
@@ -56,11 +83,17 @@ function javaScript(done) {
     done();
 }
 
-function cleanDist(done) {
-    src([paths.dest.dist], {read: false})
-        .pipe(plumber())
-        .pipe(clean());
-    done()
+function handleKitsDev(done) {
+    src(paths.src.html)
+        .pipe(kit())
+        .pipe(replace(/\.\.\/\.\.\//g, function handleReplace(match, p1, offset, string) {
+            // Replace "../../" and log a ton of information
+            // See https://mdn.io/string.replace#Specifying_a_function_as_a_parameter
+            console.log('Found ' + match);
+            return "";
+        }))
+        .pipe(dest(paths.dest.root))
+    done();
 }
 
 function handleKits(done) {
@@ -73,7 +106,7 @@ function handleKits(done) {
             console.log('Found ' + match);
             return "";
         }))
-        .pipe(htmlmin({ collapseWhitespace: true }))
+        .pipe(htmlmin())
         .pipe(htmlhint())
         .pipe(dest(paths.dest.root))
     done();
@@ -90,8 +123,9 @@ function liveMonitor(done) {
     done()
 }
 
+const mainFunctionsDev = parallel(handleKitsDev, sassCompilerDev, javaScriptDev);
 const mainFunctions = parallel(handleKits, sassCompiler, javaScript);
-exports.default = series(mainFunctions);
-exports.live = series(mainFunctions, liveServer, liveMonitor);
 exports.clean = cleanDist;
-exports.test = sassCompiler
+exports.default = series(mainFunctionsDev);
+exports.live = series(mainFunctionsDev, liveServer, liveMonitor);
+exports.deploy = mainFunctions
